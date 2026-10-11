@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Hotel La Moraleja: suites y villas en Santa Fe, Ciudad de Mexico. Restaurante El Refran abierto 24 horas.">
+<meta name="theme-color" content="#150a0d">
+<title>Hotel La Moraleja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Concepto: hoja larga en bloques de pantalla completa. Paleta de marca: vino, azul y crema, sobre fondo oscuro. */
+:root{
+  --bg:#150a0d; --card:#241418; --line:#3a2227;
+  --fg:#f3e9e4; --muted:#b5a29d;
+  --cream:#fff9e7; --blue:#627f93; --blue-soft:#9db6c7; --red:#a3192b; --red-hi:#bd2438; --red-deep:#7d1321;
+  --gold:#d2ad78;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --body:"Jost","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 var(--body)}
+a{color:inherit;text-decoration:none}
+img,video{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px;width:100%}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.1;margin:0;text-wrap:balance}
+h2{font-size:clamp(2rem,5vw,3rem)}
+h2 em{font-style:italic;color:var(--blue-soft)}
+.eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-soft);margin:0 0 12px}
+.lead{color:var(--muted);max-width:60ch;margin:14px 0 0}
+
+/* Bloques de pantalla completa */
+.block{min-height:100vh;min-height:100svh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;padding-block:96px 56px;position:relative}
+.block.deep{background:color-mix(in srgb,var(--blue) 14%,var(--bg))}
+.block.wine{background:linear-gradient(160deg,var(--red-deep),#5e0e19 55%,#3d0a12);--line:rgba(255,249,231,.26);--card:rgba(255,249,231,.07);--muted:#e7d3cf}
+.block.wine .eyebrow{color:var(--cream)}
+.block.wine h2 em{color:var(--cream)}
+footer{scroll-snap-align:end}
+
+/* Navegación */
+header.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;background:rgba(21,10,13,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;flex-wrap:wrap}
+.brand{display:flex;align-items:center}
+.brand img{height:42px;width:auto;object-fit:contain}
+.brand .txt{font-family:var(--display);font-size:1.5rem;letter-spacing:.02em;line-height:1.05}
+.brand .txt small{display:block;font:300 .62rem/1 var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--blue-soft);margin-top:3px}
+.nav nav{display:flex;gap:22px;align-items:center;font-size:.88rem;flex-wrap:wrap}
+.nav nav a:not(.btn){color:var(--muted);padding-block:4px;border-bottom:1px solid transparent}
+.nav nav a:not(.btn):hover,.nav nav a.on{color:var(--cream);border-bottom-color:var(--blue)}
+@media(max-width:760px){.nav nav a:not(.btn){display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:2px;font-weight:500;font-size:.88rem;letter-spacing:.06em;border:1px solid var(--red);background:var(--red);color:var(--cream);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.btn:hover{background:var(--red-hi);border-color:var(--red-hi)}
+.btn.ghost{background:transparent;border-color:var(--cream);color:var(--cream)}
+.btn.ghost:hover{background:rgba(255,249,231,.12)}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#0f1a21}
+.btn.blue:hover{background:var(--blue-soft);border-color:var(--blue-soft)}
+.btn.cream{background:var(--cream);border-color:var(--cream);color:var(--red-deep)}
+.btn.cream:hover{background:#fff;border-color:#fff}
+.btn.sm{padding:9px 18px}
+
+/* Fotos (y videos más adelante) */
+.media{position:relative;overflow:hidden;background:linear-gradient(135deg,#3a1219,#16090c 70%)}
+.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media img{opacity:0;transition:opacity .45s ease}
+.media img.on{opacity:1}
+.media .tag{position:absolute;left:12px;bottom:10px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,249,231,.5);z-index:1}
+.media.has-img .tag,.media.has-video .tag{display:none}
+.dots{position:absolute;left:0;right:0;bottom:10px;z-index:2;display:flex;justify-content:center;gap:7px}
+.dots button{width:8px;height:8px;padding:0;border-radius:50%;cursor:pointer;border:1px solid rgba(255,249,231,.85);background:transparent;transition:background .2s}
+.dots button[aria-current="true"]{background:var(--cream)}
+.hero .dots{bottom:auto;top:calc(76px + env(safe-area-inset-top,0px));right:20px;left:auto;justify-content:flex-end}
+
+/* Portada */
+.hero{isolation:isolate;justify-content:flex-end;padding-bottom:64px}
+.hero .media{position:absolute;inset:0;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(21,10,13,.55),rgba(21,10,13,.3) 38%,rgba(21,10,13,.94))}
+.hero h1{font-size:clamp(2.8rem,9vw,6rem);max-width:12ch}
+.hero h1 em{color:var(--cream);font-style:italic}
+.hero p.lead{font-size:1.08rem;color:#e3d4cd}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+
+.block.fondo{isolation:isolate;justify-content:flex-end;padding-bottom:64px}
+.block.fondo > .media{position:absolute;inset:0;z-index:-2}
+.block.fondo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(21,10,13,.5),rgba(21,10,13,.28) 38%,rgba(21,10,13,.94))}
+.block.fondo .texto{max-width:62ch}
+.block.fondo .dots{bottom:auto;top:calc(84px + env(safe-area-inset-top,0px));right:20px;left:auto;justify-content:flex-end}
+/* Experiencia */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,6vw,72px);align-items:center}
+@media(max-width:820px){.about{grid-template-columns:1fr}}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{padding:22px 20px;border:1px solid var(--line);border-top:2px solid var(--blue);background:var(--card)}
+.stat b{display:block;font:500 2.4rem/1 var(--display);color:var(--cream)}
+.stat span{display:block;margin-top:8px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* Habitaciones */
+.tabs{display:inline-flex;border:1px solid var(--line);margin-top:22px}
+.tabs button{font:500 .85rem var(--body);letter-spacing:.08em;padding:12px 24px;background:transparent;border:0;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--red);color:var(--cream)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:26px}
+.room{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line)}
+.room .media{aspect-ratio:16/10}
+.room .body{display:flex;flex-direction:column;gap:8px;padding:18px 20px 20px;flex:1}
+.room .kind{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-soft)}
+.room h3{font-size:1.6rem;color:var(--cream)}
+.room p{margin:0;color:var(--muted);font-size:.9rem}
+.room .foot{margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.price{font:500 2rem/1 var(--display);color:var(--gold);font-variant-numeric:tabular-nums}
+.price small{font:300 .75rem var(--body);color:var(--muted);letter-spacing:.04em;margin-left:4px}
+.price2{display:block;font:300 .85rem var(--body);color:var(--blue-soft);letter-spacing:.02em;margin-top:6px}
+.avail{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-soft);padding-bottom:4px}
+.note{margin-top:20px;color:var(--muted);font-size:.85rem;max-width:75ch}
+
+/* Servicios */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:32px}
+.svc{padding:22px;border:1px solid var(--line);background:var(--card)}
+.svc svg{width:28px;height:28px;stroke:var(--cream);fill:none;stroke-width:1.6;margin-bottom:12px}
+.svc b{display:block;font-weight:500;color:var(--cream)}
+.svc span{color:var(--muted);font-size:.88rem}
+
+/* Restaurante */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,72px);align-items:center}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+.split .media{aspect-ratio:4/3}
+.ticks{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:8px;color:var(--muted)}
+.ticks li::before{content:"";display:inline-block;width:18px;height:1px;background:var(--blue);vertical-align:middle;margin-right:12px}
+
+/* Contacto */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,72px)}
+@media(max-width:820px){.contact{grid-template-columns:1fr}}
+dl{margin:26px 0 0;display:grid;gap:18px}
+dt{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-soft)}
+dd{margin:4px 0 0}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.mapbox{min-height:300px;border:1px solid var(--line);border-top:2px solid var(--blue);background:linear-gradient(135deg,#2a1519,#150a0d);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;color:var(--muted)}
+.mapbox.conmapa{padding:0;display:block}
+.mapbox iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+
+footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a:hover{color:var(--cream)}
+
+.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:#1f9d55;color:#fff;font-weight:500;font-size:.88rem;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.wa svg{width:20px;height:20px;fill:#fff}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#inicio" id="brand" aria-label="Hotel La Moraleja, inicio">
+      <span class="txt">La Moraleja<small>Suites &amp; Love Hotel</small></span>
+    </a>
+    <nav>
+      <a href="#habitaciones">Habitaciones</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#refran">El Refrán</a>
+      <a href="#contacto">Contacto</a>
+      <a class="btn sm" id="navReservar" href="#" target="_blank" rel="noopener">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="block hero" id="inicio">
+    <div class="media" data-media="hero"></div>
+    <div class="wrap">
+      <p class="eyebrow">Santa Fe · Ciudad de México</p>
+      <h1>Discreción y <em>confort</em> a minutos de todo</h1>
+      <p class="lead">Suites para viajeros de negocios y villas privadas, con estacionamiento subterráneo, servicio a la habitación las 24 horas y el restaurante El Refrán dentro del hotel.</p>
+      <div class="cta-row">
+        <a class="btn" id="heroReservar" href="#" target="_blank" rel="noopener">Reservar ahora</a>
+        <a class="btn ghost" href="#habitaciones">Ver habitaciones y precios</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiencia">
+    <div class="wrap about">
+      <div>
+        <p class="eyebrow">Vive la experiencia</p>
+        <h2>Cerca de Santa Fe y de <em>Prolongación Reforma</em></h2>
+        <p class="lead">Cincuenta habitaciones con cama King size, aire acondicionado y calefacción, a pocos minutos de los centros corporativos y comerciales de la zona. Servicio atento, entrada discreta y estacionamiento bajo techo.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>50</b><span>Habitaciones King</span></div>
+        <div class="stat"><b>24 h</b><span>Servicio a la habitación</span></div>
+        <div class="stat"><b>14</b><span>Villas privadas</span></div>
+        <div class="stat"><b>P−1</b><span>Estacionamiento subterráneo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block deep" id="habitaciones">
+    <div class="wrap">
+      <p class="eyebrow">Habitaciones y villas</p>
+      <h2>Elige tu <em>espacio</em></h2>
+      <div class="tabs" role="tablist" aria-label="Tipo de espacio">
+        <button role="tab" id="tab-suites" aria-selected="true" aria-controls="grid">Hospedaje</button>
+        <button role="tab" id="tab-villas" aria-selected="false" aria-controls="grid">Villas</button>
+      </div>
+      <div class="grid" id="grid" role="tabpanel"></div>
+      <p class="note" id="roomNote"></p>
+    </div>
+  </section>
+
+  <section class="block wine" id="servicios">
+    <div class="wrap">
+      <p class="eyebrow">Incluido en tu estancia</p>
+      <h2>Todo lo necesario, <em>sin pedirlo dos veces</em></h2>
+      <div class="services" id="services"></div>
+    </div>
+  </section>
+
+  <section class="block fondo" id="refran">
+    <div class="media" data-media="refran"></div>
+    <div class="wrap">
+      <div class="texto">
+        <p class="eyebrow">Restaurante y bar</p>
+        <h2>El <em>Refrán</em></h2>
+        <p class="lead">Cocina mexicana, pastas, ensaladas, mariscos y carnes, con carta de vinos y licores. Abierto las 24 horas, para comer en el salón, en la terraza o en tu habitación.</p>
+        <ul class="ticks">
+          <li>Salón con capacidad para 60 comensales</li>
+          <li>Terraza exterior</li>
+          <li>Barra con vinos y licores</li>
+          <li>Servicio a la habitación las 24 horas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block deep" id="contacto">
+    <div class="wrap contact">
+      <div>
+        <p class="eyebrow">Contacto y ubicación</p>
+        <h2>Cómo <em>llegar</em></h2>
+        <dl>
+          <div><dt>Dirección</dt><dd>Av. Vasco de Quiroga 1871, Col. Carlos A. Madrazo, Alcaldía Álvaro Obregón, Ciudad de México, C.P. 01320</dd></div>
+          <div><dt>Teléfono</dt><dd id="phoneTxt"></dd></div>
+          <div><dt>WhatsApp</dt><dd id="waTxt"></dd></div>
+          <div><dt>Correo</dt><dd id="mailTxt"></dd></div>
+        </dl>
+        <div class="links">
+          <a class="btn" id="reservarContacto" href="#" target="_blank" rel="noopener">Reservar</a>
+          <a class="btn blue" id="uber" href="#" target="_blank" rel="noopener" hidden>Pedir por Uber</a>
+          <a class="btn ghost" id="gmaps" href="#" target="_blank" rel="noopener">Google Maps</a>
+          <a class="btn ghost" id="waze" href="#" target="_blank" rel="noopener">Waze</a>
+        </div>
+      </div>
+      <div class="mapbox conmapa"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.7663114951188!2d-99.24885638444553!3d19.37926878691471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d200e29583fbb3%3A0x60c8ec6d80551497!2sLa%20Moraleja!5e0!3m2!1ses-419!2smx!4v1586140759674!5m2!1ses-419!2smx" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Hotel La Moraleja" allowfullscreen></iframe></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Hotel La Moraleja · Inmobiliaria Villajuan, S.A. de C.V.</span>
+    <span><a href="/aviso-de-privacidad/">Aviso de privacidad</a> · <a id="fb" href="#" target="_blank" rel="noopener">Facebook</a></span>
+  </div>
+</footer>
+
+<a class="wa" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.4-.4.4c-.1.1-.3.3-.1.5.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.4.1.5-.1l.7-.9c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.2z"/></svg>
+  Escríbenos
+</a>
+
+<script>
+/* ============ DATOS: edita solo aquí ============ */
+const SITE = {
+  logo: "fotos/logo.png",          // Logo del hotel en PNG con fondo transparente. Si falta, se ve el nombre en texto.
+  phone: "55 5259 8441", phoneTel: "+525552598441",
+  whatsapp: "525523084549", whatsappText: "55 2308 4549",
+  mail: "info@hotellamoraleja.com.mx",
+  booking: "https://api.whatsapp.com/send?phone=525523084549&text=Hola,%20quiero%20reservar%20una%20suite",
+  uber: "https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff%5Bnickname%5D=Hotel%20La%20Moraleja&dropoff%5Bformatted_address%5D=Av.%20Vasco%20de%20Quiroga%201871%2C%20Carlos%20A.%20Madrazo%2C%20%C3%81lvaro%20Obreg%C3%B3n%2C%20CDMX&dropoff%5Blatitude%5D=19.37937&dropoff%5Blongitude%5D=-99.24656",
+  maps: "https://goo.gl/J01gQP",
+  waze: "https://www.waze.com/ul?ll=19.37937%2C-99.24656&navigate=yes&zoom=17",
+  facebook: "https://www.facebook.com/Hotellamoralejamx/",
+  // Fotos: guarda cada imagen en la carpeta /fotos con estos nombres. Puedes poner las que quieras:
+  // agrega o quita renglones dentro de los corchetes [ ]. Con 2 o más salen puntitos para cambiarlas.
+  // Las que falten simplemente no se muestran; si no hay ninguna, se ve un fondo de relleno.
+  // Videos (después): escribe la ruta en "video" y se reproduce encima de las fotos.
+  media: {
+    hero:   { fotos:["fotos/hero-1.jpg","fotos/hero-2.jpg","fotos/hero-3.jpg"], video:"" },
+    refran: { fotos:["fotos/refran-1.jpg","fotos/refran-2.jpg"], video:"" }
+  }
+};
+const SUITES = [
+  { id:"sencilla", name:"Suite Sencilla", price:1030, unit:"noche", desc:"Cama King size, aire acondicionado y calefacción. Lo esencial para trabajar y descansar.", fotos:["fotos/sencilla-1.jpg","fotos/sencilla-2.jpg"], video:"" },
+  { id:"sauna", name:"Suite Sauna", price:1120, unit:"noche", desc:"Todo lo de la Sencilla, con sauna privado dentro de la habitación.", fotos:["fotos/sauna-1.jpg","fotos/sauna-2.jpg","fotos/sauna-3.jpg"], video:"" },
+  { id:"jacuzzi", name:"Suite Jacuzzi", price:1290, unit:"noche", desc:"Todo lo de la Sencilla, con jacuzzi privado para dos. Sujeto a disponibilidad por noche", fotos:["fotos/jacuzzi-1.jpg","fotos/jacuzzi-2.jpg"], video:"" },
+  { id:"sauna-jacuzzi-alberca", name:"Sauna, Jacuzzi y Alberca", price:3500, unit:"noche", price2:2700, unit2:"8 horas", desc:"Nuestra suite más completa: sauna, jacuzzi y alberca privada.", fotos:["fotos/sja-1.jpg","fotos/sja-2.jpg","fotos/sja-3.jpg"], video:"" }
+];
+const VILLAS = [
+  { id:"villa", name:"Villa", price:600, unit:"5 horas", desc:"Espacio privado con cochera propia, cama King size y regadera de cascada.", fotos:["fotos/villa-1.jpg"], video:"" },
+  { id:"villa-jacuzzi", name:"Villa Jacuzzi", price:1020, unit:"5 horas", desc:"Villa privada con jacuzzi, cochera propia y cama King size.", fotos:["fotos/villa-jacuzzi-1.jpg","fotos/villa-jacuzzi-2.jpg"], video:"" }
+];
+const NOTES = {
+  suites: "Persona extra: $300 (en habitacion sencilla, cama individual, hasta 3 personas por habitación) y $400 en la habitación con alberca. No contamos con habitaciones dobles. Los alimentos y bebidas no están incluidos. Precios por confirmar.",
+  villas: "Las villas no se reservan: se asignan por disponibilidad al llegar. Tarifas por 5 horas."
+};
+const SERVICES = [
+  ["Servicio a la habitación","Las 24 horas, desde El Refrán.","M4 14h16M6 14a6 6 0 0 1 12 0M12 8V6M10 6h4"],
+  ["Estacionamiento subterráneo","Bajo techo y con acceso discreto.","M5 17V7a2 2 0 0 1 2-2h5a4 4 0 0 1 0 8H8M8 13v6"],
+  ["WiFi gratis","En todas las habitaciones y áreas.","M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"],
+  ["Gimnasio","Acceso para huéspedes.","M6 8v8M3 10v4M18 8v8M21 10v4M6 12h12"],
+  ["Llave electrónica","Y caja fuerte en la habitación.","M7 14a4 4 0 1 1 3.9-5H21v3h-2v2h-3v-2h-5.1A4 4 0 0 1 7 14z"],
+  ["Cama King size","En todas las suites y villas.","M3 18V8m18 10v-6a3 3 0 0 0-3-3H3m0 6h18"]
+];
+/* ============ FIN DE DATOS ============ */
+
+const $ = (s, r=document) => r.querySelector(s);
+const money = n => "$" + n.toLocaleString("es-MX");
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Logo: si la imagen carga, sustituye al texto */
+if(SITE.logo){
+  const lg = new Image();
+  lg.alt = "Hotel La Moraleja";
+  lg.onload = () => { const b = $("#brand"); b.innerHTML = ""; b.append(lg); };
+  lg.src = SITE.logo;
+}
+
+/* Pone una o varias fotos (y video, si hay) dentro de una caja .media */
+function fillMedia(box, m, label){
+  const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = label; box.append(tag);
+  const fotos = [].concat(m.fotos || m.foto || []).filter(Boolean);
+  const ok = [];
+  fotos.forEach(src => {
+    const img = new Image(); img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    img.onload = () => { box.classList.add("has-img"); ok.push(img); if(ok.length === 1) img.classList.add("on"); armar(); };
+    img.onerror = () => img.remove();
+    img.src = src; box.prepend(img);
+  });
+  let dots, i = 0;
+  function ir(n){ ok.forEach((im,k) => im.classList.toggle("on", k === n));
+    [...(dots?.children || [])].forEach((b,k) => b.setAttribute("aria-current", k === n)); i = n; }
+  function armar(){
+    if(ok.length < 2) return;
+    if(!dots){
+      dots = document.createElement("div"); dots.className = "dots"; box.append(dots);
+      let x0 = null;
+      box.addEventListener("pointerdown", e => x0 = e.clientX);
+      box.addEventListener("pointerup", e => {
+        if(x0 === null) return; const d = e.clientX - x0; x0 = null;
+        if(Math.abs(d) > 40) ir((i + (d < 0 ? 1 : ok.length - 1)) % ok.length);
+      });
+    }
+    dots.innerHTML = "";
+    ok.forEach((_, k) => {
+      const b = document.createElement("button"); b.type = "button";
+      b.setAttribute("aria-label", "Foto " + (k+1)); b.setAttribute("aria-current", k === i);
+      b.onclick = ev => { ev.preventDefault(); ir(k); };
+      dots.append(b);
+    });
+  }
+  if(m.video){
+    const v = document.createElement("video");
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = "none";
+    v.setAttribute("muted",""); v.setAttribute("playsinline","");
+    v.addEventListener("error", () => v.remove());
+    v.addEventListener("playing", () => box.classList.add("has-video"));
+    box.append(v);
+    new IntersectionObserver(es => es.forEach(e => {
+      if(e.isIntersecting){ if(!v.src) v.src = m.video; if(!reduced) v.play().catch(()=>{}); } else v.pause();
+    }), {rootMargin:"200px"}).observe(box);
+  }
+}
+
+function renderRooms(kind){
+  const list = kind === "suites" ? SUITES : VILLAS;
+  const grid = $("#grid"); grid.innerHTML = "";
+  list.forEach(r => {
+    const el = document.createElement("article"); el.className = "room";
+    el.innerHTML = `<div class="media"></div><div class="body"><span class="kind"></span><h3></h3><p></p><div class="foot"><div class="price"></div></div></div>`;
+    $(".kind", el).textContent = kind === "suites" ? "Hospedaje" : "Villa";
+    $("h3", el).textContent = r.name;
+    $("p", el).textContent = r.desc;
+$(".price", el).innerHTML = r.price
+      ? `${money(r.price)}<small>/ ${r.unit}</small>` + (r.price2 ? `<span class="price2">${money(r.price2)} / ${r.unit2}</span>` : "")
+      : `<small>Consultar tarifa</small>`;    /* Las suites se reservan; las villas se asignan por disponibilidad y no llevan botón. */
+    if(kind === "suites"){
+      const btn = document.createElement("a");
+      btn.className = "btn sm"; btn.target = "_blank"; btn.rel = "noopener";
+      btn.textContent = "Reservar"; btn.href = SITE.booking;
+      $(".foot", el).append(btn);
+    } else {
+      const av = document.createElement("span");
+      av.className = "avail"; av.textContent = "Sujeta a disponibilidad";
+      $(".foot", el).append(av);
+    }
+    fillMedia($(".media", el), r, "Foto: " + r.id);
+    grid.append(el);
+  });
+  $("#roomNote").textContent = NOTES[kind];
+  $("#tab-suites").setAttribute("aria-selected", kind === "suites");
+  $("#tab-villas").setAttribute("aria-selected", kind === "villas");
+}
+$("#tab-suites").onclick = () => renderRooms("suites");
+$("#tab-villas").onclick = () => renderRooms("villas");
+renderRooms("suites");
+
+$("#services").innerHTML = SERVICES.map(([t,d,p]) =>
+  `<div class="svc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${p}"/></svg><b>${t}</b><span>${d}</span></div>`).join("");
+
+["navReservar","heroReservar","reservarContacto"].forEach(id => $("#"+id).href = SITE.booking);
+const waLink = `https://api.whatsapp.com/send?phone=${SITE.whatsapp}&text=${encodeURIComponent("Hola, quiero información del hotel")}`;
+$("#waFloat").href = waLink;
+$("#gmaps").href = SITE.maps; $("#waze").href = SITE.waze; $("#fb").href = SITE.facebook;
+if(SITE.uber && !SITE.uber.includes("{{")){ const u = $("#uber"); u.href = SITE.uber; u.hidden = false; }
+$("#phoneTxt").innerHTML = `<a href="tel:${SITE.phoneTel}">${SITE.phone}</a>`;
+$("#waTxt").innerHTML = `<a href="${waLink}" target="_blank" rel="noopener">${SITE.whatsappText}</a>`;
+$("#mailTxt").textContent = SITE.mail;
+$("#year").textContent = new Date().getFullYear();
+
+document.querySelectorAll("[data-media]").forEach(box => fillMedia(box, SITE.media[box.dataset.media], "Foto: " + box.dataset.media));
+
+/* Marca en el menú el bloque que está en pantalla */
+const links = [...document.querySelectorAll(".nav nav a[href^='#']:not(.btn)")];
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+}), {threshold:0.5});
+document.querySelectorAll("main .block").forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>
